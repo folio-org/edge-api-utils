@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.3</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.folio</groupId>
+	<artifactId>edge-api-utils</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>edge-api-utils</name>
+  <description>Common/Shared Edge API utilities for edge-common and edge-common-spring</description>
+
+	<properties>
+		<java.version>11</java.version>
+		<vault.version>3.1.0</vault.version>
+		<aws-java-sdk.version>1.11.313</aws-java-sdk.version>
+		<httpcore.version>4.4.9</httpcore.version>
+		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+		<maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
+		<maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-logging</artifactId>
+    </dependency>
+    <!-- Only needed for VaultStore -->
+    <dependency>
+      <groupId>com.bettercloud</groupId>
+      <artifactId>vault-java-driver</artifactId>
+      <version>${vault.version}</version>
+    </dependency>
+    <!-- Only needed for AwsParamStore -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-ssm</artifactId>
+      <version>${aws-java-sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>${httpcore.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-xml</artifactId>
+    </dependency>
+  </dependencies>
+
+	<build>
+		<plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${versions-maven-plugin.version}</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.1.1</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>${build-helper-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+        <configuration>
+          <preparationGoals>clean verify</preparationGoals>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+          <pushChanges>false</pushChanges>
+          <localCheckout>true</localCheckout>
+        </configuration>
+      </plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>folio-nexus</id>
+			<name>FOLIO Maven repository</name>
+			<url>https://repository.folio.org/repository/maven-folio</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>folio-nexus</id>
+			<name>FOLIO Release Repository</name>
+			<url>https://repository.folio.org/repository/maven-releases/</url>
+			<uniqueVersion>false</uniqueVersion>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<id>folio-nexus</id>
+			<name>FOLIO Snapshot Repository</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://repository.folio.org/repository/maven-snapshots/</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<scm>
+		<url>https://github.com/folio-org/${project.artifactId}</url>
+		<connection>scm:git:git://github.com/folio-org/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:git@github.com:folio-org/${project.artifactId}.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+</project>
