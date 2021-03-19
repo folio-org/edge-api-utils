@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.3</version>
-		<relativePath/>
-	</parent>
 	<groupId>org.folio</groupId>
 	<artifactId>edge-api-utils</artifactId>
   <packaging>jar</packaging>
@@ -17,6 +11,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vault.version>3.1.0</vault.version>
 		<aws-java-sdk.version>1.11.313</aws-java-sdk.version>
 		<httpcore.version>4.4.9</httpcore.version>
@@ -25,17 +20,30 @@
 		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
 		<build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
 		<maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+		<awaitility.version>3.0.0</awaitility.version>
+		<junit.version>4.13.1</junit.version>
+    <wiremock.version>2.27.2</wiremock.version>
+    <mockito.version>3.4.6</mockito.version>
+    <jackson.version>2.12.1</jackson.version>
+    <log4j.version>2.14.0</log4j.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <!-- we use log4j as our logging implementation -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j.version}</version>
     </dependency>
     <!-- Only needed for VaultStore -->
     <dependency>
@@ -55,13 +63,43 @@
       <version>${httpcore.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-xml</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <version>${awaitility.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tomakehurst</groupId>
+      <artifactId>wiremock-standalone</artifactId>
+      <version>${wiremock.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
 	<build>
 		<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
