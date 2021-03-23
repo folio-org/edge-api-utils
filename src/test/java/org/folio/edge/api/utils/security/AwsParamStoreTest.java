@@ -17,7 +17,6 @@ import com.amazonaws.services.simplesystemsmanagement.model.AWSSimpleSystemsMana
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterResult;
 import com.amazonaws.services.simplesystemsmanagement.model.Parameter;
-import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import java.util.Properties;
 import java.util.UUID;
@@ -51,7 +50,6 @@ public class AwsParamStoreTest {
 
   private static final String ecsCredEndpoint = "http://localhost:" + port;
   private static final String ecsCredPath = "/v2/credentials/" + UUID.randomUUID();
-  public final static int OKAPI_PORT = 3333;
 
   @Rule
   public WireMockRule wireMockRule = new WireMockRule(port);
@@ -61,8 +59,6 @@ public class AwsParamStoreTest {
 
   @InjectMocks
   AwsParamStore secureStore;
-
-  public static WireMockServer wireMockServer;
 
   @Before
   public void setUp() throws Exception {
