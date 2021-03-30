@@ -2,6 +2,7 @@ package org.folio.edge.api.utils.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.folio.edge.api.utils.model.ClientInfo;
 
 public class ApiKeyParser {
@@ -17,21 +18,21 @@ public class ApiKeyParser {
       ObjectMapper mapper = new ObjectMapper();
       clientInfo = mapper.readValue(decoded, ClientInfo.class);
     } catch (Exception var4) {
-      throw new MalformedApiKeyException("Failed to parse", var4);
+      throw new MalformedApiKeyException("Failed to parse apiKey to retrieve client ifon", var4);
     }
 
-    if (clientInfo.salt != null && !clientInfo.salt.isEmpty()) {
-      if (clientInfo.tenantId != null && !clientInfo.tenantId.isEmpty()) {
-        if (clientInfo.username != null && !clientInfo.username.isEmpty()) {
+    if (StringUtils.isNotEmpty(clientInfo.salt)) {
+      if (StringUtils.isNotEmpty(clientInfo.tenantId)) {
+        if (StringUtils.isNotEmpty(clientInfo.username)) {
           return clientInfo;
         } else {
-          throw new MalformedApiKeyException("Null/Empty Username");
+          throw new MalformedApiKeyException("Exception while parsing apiKey: username can not be null or empty");
         }
       } else {
-        throw new MalformedApiKeyException("Null/Empty Tenant");
+        throw new MalformedApiKeyException("Exception while parsing apiKey: tenant can not be null or empty");
       }
     } else {
-      throw new MalformedApiKeyException("Null/Empty Salt");
+      throw new MalformedApiKeyException("Exception while parsing apiKey: salt can not be null or empty");
     }
   }
 
