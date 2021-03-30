@@ -21,19 +21,14 @@ public class ApiKeyParser {
       throw new MalformedApiKeyException("Failed to parse apiKey to retrieve client info", var4);
     }
 
-    if (StringUtils.isNotEmpty(clientInfo.salt)) {
-      if (StringUtils.isNotEmpty(clientInfo.tenantId)) {
-        if (StringUtils.isNotEmpty(clientInfo.username)) {
-          return clientInfo;
-        } else {
-          throw new MalformedApiKeyException("Exception while parsing apiKey: username can not be null or empty");
-        }
-      } else {
-        throw new MalformedApiKeyException("Exception while parsing apiKey: tenant can not be null or empty");
-      }
-    } else {
+    if (StringUtils.isEmpty(clientInfo.salt)) {
       throw new MalformedApiKeyException("Exception while parsing apiKey: salt can not be null or empty");
+    } else if (StringUtils.isEmpty(clientInfo.tenantId)) {
+      throw new MalformedApiKeyException("Exception while parsing apiKey: tenant can not be null or empty");
+    } else if (StringUtils.isEmpty(clientInfo.username)) {
+      throw new MalformedApiKeyException("Exception while parsing apiKey: username can not be null or empty");
     }
+    return clientInfo;
   }
 
   public static class MalformedApiKeyException extends Exception {
