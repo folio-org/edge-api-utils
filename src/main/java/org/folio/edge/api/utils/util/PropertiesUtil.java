@@ -1,10 +1,7 @@
 package org.folio.edge.api.utils.util;
 
-import static java.lang.String.format;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -14,7 +11,7 @@ import org.folio.edge.api.utils.exception.AuthorizationException;
 
 public class PropertiesUtil {
 
-  private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Logger logger = LogManager.getLogger(PropertiesUtil.class);
 
   private static final Pattern isURL = Pattern.compile("(?i)^http[s]?://.*");
 
@@ -24,7 +21,7 @@ public class PropertiesUtil {
   public static Properties getProperties(String secureStorePropFile) {
     Properties secureStoreProps = new Properties();
 
-    LOGGER.info(format("Attempt to load properties from: %s", secureStorePropFile));
+    logger.info("Attempt to load properties from: {}", secureStorePropFile);
 
     if (secureStorePropFile != null) {
       URL url = null;
@@ -36,13 +33,13 @@ public class PropertiesUtil {
         try (
           InputStream in = url == null ? new FileInputStream(secureStorePropFile) : url.openStream()) {
           secureStoreProps.load(in);
-          LOGGER.info(format("Successfully loaded properties from: $s", secureStorePropFile));
+          logger.info("Successfully loaded properties from: {}", secureStorePropFile);
         }
       } catch (Exception e) {
         throw new AuthorizationException("Failed to load secure store properties");
       }
     } else {
-      LOGGER.warn("No secure store properties file specified. Using defaults");
+      logger.warn("No secure store properties file specified. Using defaults");
     }
     return secureStoreProps;
   }
