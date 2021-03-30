@@ -42,7 +42,7 @@ public class PropertiesUtil {
         throw new AuthorizationException("Failed to load secure store properties");
       }
     } else {
-      LOGGER.warn("No secure store properties file specified. Using defaults");
+      logger.warn("No secure store properties file specified. Using defaults");
     }
     return secureStoreProps;
   }
