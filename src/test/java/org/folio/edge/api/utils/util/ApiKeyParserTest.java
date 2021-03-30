@@ -26,7 +26,7 @@ public class ApiKeyParserTest {
       .encodeToString(objectMapper.writeValueAsString(ci).getBytes());
     MalformedApiKeyException exception = Assert.assertThrows(ApiKeyParser.MalformedApiKeyException.class,
       () -> ApiKeyParser.parseApiKey(apiKey));
-    assertEquals("Malformed API Key: Null/Empty Salt", exception.getMessage());
+    assertEquals("Malformed API Key: Exception while parsing apiKey: salt can not be null or empty", exception.getMessage());
   }
 
   @Test
@@ -36,7 +36,7 @@ public class ApiKeyParserTest {
       .encodeToString(objectMapper.writeValueAsString(ci).getBytes());
     MalformedApiKeyException exception = Assert.assertThrows(ApiKeyParser.MalformedApiKeyException.class,
       () -> ApiKeyParser.parseApiKey(apiKey));
-    assertEquals("Malformed API Key: Null/Empty Tenant", exception.getMessage());
+    assertEquals("Malformed API Key: Exception while parsing apiKey: tenant can not be null or empty", exception.getMessage());
   }
 
   @Test
@@ -46,7 +46,7 @@ public class ApiKeyParserTest {
       .encodeToString(objectMapper.writeValueAsString(ci).getBytes());
     MalformedApiKeyException exception = Assert.assertThrows(ApiKeyParser.MalformedApiKeyException.class,
       () -> ApiKeyParser.parseApiKey(apiKey));
-    assertEquals("Malformed API Key: Null/Empty Username", exception.getMessage());
+    assertEquals("Malformed API Key: Exception while parsing apiKey: username can not be null or empty", exception.getMessage());
   }
 
   @Test
@@ -65,6 +65,6 @@ public class ApiKeyParserTest {
     MalformedApiKeyException exception = Assert.assertThrows(ApiKeyParser.MalformedApiKeyException.class,
       () -> ApiKeyParser.parseApiKey(BAD_API_KEY));
 
-    assertEquals("Malformed API Key: Failed to parse", exception.getMessage());
+    assertEquals("Malformed API Key: Failed to parse apiKey to retrieve client info", exception.getMessage());
   }
 }

@@ -18,7 +18,7 @@ public class ApiKeyParser {
       ObjectMapper mapper = new ObjectMapper();
       clientInfo = mapper.readValue(decoded, ClientInfo.class);
     } catch (Exception var4) {
-      throw new MalformedApiKeyException("Failed to parse apiKey to retrieve client ifon", var4);
+      throw new MalformedApiKeyException("Failed to parse apiKey to retrieve client info", var4);
     }
 
     if (StringUtils.isNotEmpty(clientInfo.salt)) {
