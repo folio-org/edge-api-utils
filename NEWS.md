@@ -1,6 +1,6 @@
 ## 1.1.0 Unreleased
 
-## 1.0.0 Released
+## 27/05/2021 v1.0.0 - Released
 Initial release of `edge-api-utils` library
 
 ### Stories
