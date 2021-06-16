@@ -49,6 +49,7 @@ public class Constants {
 
   // Param names
   public static final String PARAM_API_KEY = "apiKey";
+  public static final String LEGACY_PARAM_API_KEY = "apikey";
 
   // Path components
   public static final String PATH_API_KEY = "apiKeyPath";
