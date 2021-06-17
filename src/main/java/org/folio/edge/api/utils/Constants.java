@@ -48,7 +48,8 @@ public class Constants {
   public static final String XML_OR_TEXT = APPLICATION_XML + ", " + TEXT_PLAIN;
 
   // Param names
-  public static final String PARAM_API_KEY = "apikey";
+  public static final String PARAM_API_KEY = "apiKey";
+  public static final String LEGACY_PARAM_API_KEY = "apikey";
 
   // Path components
   public static final String PATH_API_KEY = "apiKeyPath";
