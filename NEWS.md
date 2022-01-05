@@ -1,4 +1,7 @@
-## 1.2.0 Unreleased
+## 1.3.0 Unreleased
+
+## 05/01/2022 v1.1.1 - Released
+Fix log4j2 RCE vulnerability
 
 ## 29/09/2021 v1.1.0 - Released
 The primary focus of this release was to handle api key parameters
