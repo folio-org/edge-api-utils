@@ -222,9 +222,9 @@
 
     </plugins>
 
-    </build>
+  </build>
 
-	<repositories>
+  <repositories>
 		<repository>
 			<id>folio-nexus</id>
 			<name>FOLIO Maven repository</name>
