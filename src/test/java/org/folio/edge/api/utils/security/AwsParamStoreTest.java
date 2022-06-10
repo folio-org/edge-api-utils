@@ -9,15 +9,19 @@ import static org.folio.edge.api.utils.Constants.APPLICATION_JSON;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.simplesystemsmanagement.model.AWSSimpleSystemsManagementException;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterResult;
 import com.amazonaws.services.simplesystemsmanagement.model.Parameter;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.UUID;
 import org.apache.http.HttpHeaders;
@@ -133,6 +137,13 @@ public class AwsParamStoreTest {
     AwsParamStore secureStore = new AwsParamStore(properties);
     assertNotNull(secureStore);
     assertFalse(secureStore.getUseIAM());
+  }
+
+  @Test
+  public void ecsUriException() throws URISyntaxException {
+    Exception e = assertThrows(SdkClientException.class,
+        () -> new AwsParamStore.ECSCredentialsEndpointProvider(":", "").getCredentialsEndpoint());
+    assertTrue(e.getCause() instanceof URISyntaxException);
   }
 
   private void mockServer() {
