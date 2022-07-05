@@ -1,4 +1,13 @@
-## 1.3.0 Unreleased
+## 1.2.0 Unreleased
+
+## 05/07/2022 v1.1.2 - Released
+This release includes minor technical changes.
+
+### Stories
+* [EDGAPIUTL-7](https://issues.folio.org/browse/EDGAPIUTL-7) - Publish javadoc and sources to maven repository
+
+### Bugs
+* [EDGAPIUTL-5](https://issues.folio.org/browse/EDGAPIUTL-5) - Upgrade dependencies
 
 ## 05/01/2022 v1.1.1 - Released
 Fix log4j2 RCE vulnerability
