@@ -145,7 +145,6 @@ public class AwsParamStoreTest {
   }
 
   private void mockServer() {
-
     stubFor(get(ecsCredPath)
       .withPort(port)
       .willReturn(aResponse()
