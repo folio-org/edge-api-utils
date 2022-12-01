@@ -6,6 +6,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.folio.edge.api.utils.Constants.APPLICATION_JSON;
+import static org.folio.edge.api.utils.Constants.CONTENT_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -24,8 +25,6 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.UUID;
-import org.apache.http.HttpHeaders;
-import org.apache.http.impl.bootstrap.HttpServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.folio.edge.api.utils.security.SecureStore.NotFoundException;
@@ -49,7 +48,6 @@ public class AwsParamStoreTest {
       "  \"Expiration\": \"2099-05-21T20:02:33Z\"\n" +
       "}";
 
-  private static HttpServer server;
   private static final int port = TestUtils.getPort();
 
   private static final String ecsCredEndpoint = "http://localhost:" + port;
@@ -147,11 +145,12 @@ public class AwsParamStoreTest {
   }
 
   private void mockServer() {
+
     stubFor(get(ecsCredPath)
       .withPort(port)
       .willReturn(aResponse()
         .withStatus(200)
-        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON)
+        .withHeader(CONTENT_TYPE, APPLICATION_JSON)
         .withBody(mockCreds)));
   }
 }
