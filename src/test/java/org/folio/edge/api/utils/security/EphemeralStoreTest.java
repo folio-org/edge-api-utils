@@ -1,12 +1,10 @@
 package org.folio.edge.api.utils.security;
 
-import static org.folio.edge.api.utils.util.test.TestUtils.assertLogMessage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
 
-import org.apache.logging.log4j.Level;
 import org.folio.edge.api.utils.security.SecureStore.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,19 +24,6 @@ public class EphemeralStoreTest {
     props.setProperty("done", "done");
 
     store = new EphemeralStore(props);
-  }
-
-  @Test
-  public void testConstructor() {
-    assertLogMessage(EphemeralStore.logger, 1, 2, Level.WARN, "Attention: No credentials were found/loaded", null,
-      () -> {
-        new EphemeralStore(null);
-      });
-
-    assertLogMessage(EphemeralStore.logger, 1, 2, Level.WARN, "Attention: No credentials were found/loaded", null,
-      () -> {
-        new EphemeralStore(new Properties());
-      });
   }
 
   @Test

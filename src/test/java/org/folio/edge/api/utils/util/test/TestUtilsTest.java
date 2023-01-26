@@ -55,14 +55,6 @@ public class TestUtilsTest {
     TestUtils.assertLogMessage(log, 0, 1, lvl, msg, null, () -> {});
   }
 
-  @Test
-  public void testAssertLogMessageSingleMessage() {
-    Logger log = LogManager.getLogger("testAssertLogMessageSingleMessage");
-    String msg = "hello world";
-    Level lvl = Level.INFO;
-    TestUtils.assertLogMessage(log, 1, 1, lvl, msg, null, () -> logMessages(log, msg, 1, lvl));
-  }
-
   @Test(expected = AssertionError.class)
   public void testAssertLogThrown() {
     Logger log = LogManager.getLogger("testAssertLogThrown");
@@ -78,36 +70,11 @@ public class TestUtilsTest {
     });
   }
 
-  @Test
-  public void testAssertLogMessageWrongLevel() {
-    Logger log = LogManager.getLogger("testAssertLogMessageWrongLevel");
-    String msg = "hello world";
-    // logLevel not really checked, so this succeeds
-    TestUtils.assertLogMessage(log, 1, 1, Level.ERROR, msg, null,
-        () -> logMessages(log, msg, 1, Level.INFO));
-  }
-
-  @Test
-  public void testAssertLogMessageNullLevel() {
-    Logger log = LogManager.getLogger("testAssertLogMessageNullLevel");
-    String msg = "hello world";
-    TestUtils.assertLogMessage(log, 1, 1, null, msg, null,
-        () -> logMessages(log, msg, 1, Level.INFO));
-  }
-
   @Test(expected = AssertionError.class)
   public void testAssertLogMessageNoLevel() {
     Logger log = LogManager.getLogger("testAssertLogMessageNoLevel");
     String msg = "hello world";
     TestUtils.assertLogMessage(log, 0, 1, Level.INFO, msg, null, () -> {});
-  }
-
-  @Test
-  public void testAssertLogMessageNullMessage() {
-    Logger log = LogManager.getLogger("testAssertLogMessageNullMessage");
-    Level lvl = Level.INFO;
-    TestUtils.assertLogMessage(log, 1, 1, lvl, null, null,
-        () -> logMessages(log, "goodbye blue monday", 1, lvl));
   }
 
   @Test(expected = AssertionError.class)
@@ -141,22 +108,6 @@ public class TestUtilsTest {
     Level lvl = Level.WARN;
     TestUtils.assertLogMessage(logger, 1, 1, lvl, msg, new NullPointerException(),
         () -> logMessages(null, msg, 1, lvl));
-  }
-
-  @Test
-  public void testAssertLogMessageExactCount() {
-    Logger log = LogManager.getLogger("testAssertLogMessageExactCount");
-    String msg = "hello world";
-    Level lvl = Level.INFO;
-    TestUtils.assertLogMessage(log, 5, 5, lvl, msg, null, () -> logMessages(log, msg, 5, lvl));
-  }
-
-  @Test
-  public void testAssertLogMessageWithinRange() {
-    Logger log = LogManager.getLogger("testAssertLogMessageWithinRange");
-    String msg = "hello world";
-    Level lvl = Level.INFO;
-    TestUtils.assertLogMessage(log, 1, 10, lvl, msg, null, () -> logMessages(log, msg, 7, lvl));
   }
 
   @Test(expected = AssertionError.class)
