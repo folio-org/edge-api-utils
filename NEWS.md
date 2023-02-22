@@ -1,5 +1,11 @@
 ## 1.2.0 Unreleased
 
+## 22/02/2023 v1.2.0 - Released
+This release includes logging improvements configuration.
+
+### Technical tasks
+* [EDGAPIUTL-10](https://issues.folio.org/browse/EDGAPIUTL-10) - Logging improvement - Configuration
+
 ## 05/07/2022 v1.1.2 - Released
 This release includes minor technical changes.
 
