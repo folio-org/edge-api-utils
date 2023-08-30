@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.folio.edge.api.utils.cache.Cache.Builder;
 import org.folio.edge.api.utils.cache.Cache.CacheValue;
+import org.folio.spring.model.UserToken;
 
 /**
  * A cache for storing (JWT) tokens. For now, cache entries are have a set TTL,
@@ -16,13 +17,13 @@ public class TokenCache {
 
   private static TokenCache instance = null;
 
-  private final Cache<String> cache;
+  private final Cache<UserToken> cache;
 
   private TokenCache(long ttl, long nullTokenTtl, int capacity) {
     logger.info("Using TTL: {}", ttl);
     logger.info("Using null token TTL: {}", nullTokenTtl);
     logger.info("Using capacity: {}", capacity);
-    cache = new Builder<String>()
+    cache = new Builder<UserToken>()
       .withTTL(ttl)
       .withNullValueTTL(nullTokenTtl)
       .withCapacity(capacity)
@@ -30,7 +31,7 @@ public class TokenCache {
   }
 
   /**
-   * Get the TokenCache singleton. the singleton must be initialize before
+   * Get the TokenCache singleton. the singleton must be initialized before
    * calling this method.
    *
    * See {@link #initialize(long, long, int)}
@@ -63,11 +64,11 @@ public class TokenCache {
     return instance;
   }
 
-  public String get(String clientId, String tenant, String username) {
+  public UserToken get(String clientId, String tenant, String username) {
     return cache.get(computeKey(clientId, tenant, username));
   }
 
-  public CacheValue<String> put(String clientId, String tenant, String username, String token) {
+  public CacheValue<UserToken> put(String clientId, String tenant, String username, UserToken token) {
     return cache.put(computeKey(clientId, tenant, username), token);
   }
 
