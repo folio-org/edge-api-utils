@@ -77,6 +77,20 @@ public class TokenCacheTest {
   }
 
   @Test
+  public void testPutInvalidate() throws Exception {
+    logger.info("=== Test basic functionality (Get, Put, Get)... ===");
+
+    TokenCache cache = TokenCache.getInstance();
+
+    // basic functionality
+    cache.put(clientId, tenant, user, val);
+    assertEquals(val, cache.get(clientId, tenant, user));
+
+    cache.invalidate(clientId, tenant, user);
+    assertNull(cache.get(clientId, tenant, user));
+  }
+
+  @Test
   public void testNoOverwrite() throws Exception {
     logger.info("=== Test entries aren't overwritten... ===");
 

@@ -72,6 +72,10 @@ public class TokenCache {
     return cache.put(computeKey(clientId, tenant, username), token);
   }
 
+  public void invalidate(String clientId, String tenant, String username) {
+    cache.remove(computeKey(clientId, tenant, username));
+  }
+
   private String computeKey(String clientId, String tenant, String username) {
     return String.format("%s:%s:%s", clientId, tenant, username);
   }

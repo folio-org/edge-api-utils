@@ -40,6 +40,13 @@ public class Cache<T> {
     }
   }
 
+  public void remove(String key) {
+    CacheValue<T> cached = storage.get(key);
+    if (cached != null) {
+      storage.remove(key);
+    }
+  }
+
   public CacheValue<T> put(String key, T value) {
     // Double-checked locking...
     CacheValue<T> cached = storage.get(key);

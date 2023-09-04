@@ -53,6 +53,23 @@ public class CacheTest {
   }
 
   @Test
+  public void testPutRemovePutGet() throws Exception {
+    logger.info("=== Test basic functionality (Put, Remove, Put, Get)... ===");
+
+    // basic Put
+    cache.put(key, 1L);
+    assertEquals(1L, cache.get(key).longValue());
+
+    // Remove
+    cache.remove(key);
+    assertNull(cache.get(key));
+
+    // Put and Get
+    cache.put(key, 2L);
+    assertEquals(2L, cache.get(key).longValue());
+  }
+
+  @Test
   public void testNoOverwrite() throws Exception {
     logger.info("=== Test entries aren't overwritten... ===");
 
