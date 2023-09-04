@@ -1,8 +1,9 @@
 package org.folio.edge.api.utils.cache;
 
-import java.util.LinkedHashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.LinkedHashMap;
 
 /**
  * A general purpose cache storing entries with a set TTL,
@@ -41,10 +42,7 @@ public class Cache<T> {
   }
 
   public void remove(String key) {
-    CacheValue<T> cached = storage.get(key);
-    if (cached != null) {
-      storage.remove(key);
-    }
+    storage.remove(key);
   }
 
   public CacheValue<T> put(String key, T value) {
