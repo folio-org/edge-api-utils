@@ -4,10 +4,13 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.folio.edge.api.utils.cache.Cache.CacheValue;
+import org.folio.spring.model.UserToken;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +25,8 @@ public class TokenCacheTest {
   private final String tenant = "diku";
   private final String user = "diku";
   private final String clientId = "abc123";
-  private final String val = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkaWt1IiwidXNlcl9pZCI6Ijk3ZTNmYzVmLTVjMzMtNGY2Ny1hZmRiLWEzYjI5YTVhYWZjOCIsInRlbmFudCI6ImRpa3UifQ.uda9KgBn82jCR3FXd73CnkmfDDk3OBQI0bjrJ5L7oJ8fS_7-TDNj7UKiFl-YxnqwFGHGACprsG5Bp7kkG8ArZA";
+  private static final Instant TOKEN_EXPIRATION = Instant.now().plus(1, ChronoUnit.DAYS);
+  private final UserToken val = userToken("val", TOKEN_EXPIRATION);
 
   @Before
   public void setUp() throws Exception {
@@ -33,7 +37,7 @@ public class TokenCacheTest {
   @Test
   public void testReinitialize() throws Exception {
     logger.info("=== Test Reinitialize... ===");
-    final CacheValue<String> cached = TokenCache.getInstance().put(clientId, tenant, user, val);
+    final CacheValue<UserToken> cached = TokenCache.getInstance().put(clientId, tenant, user, val);
 
     await().with()
       .pollInterval(20, TimeUnit.MILLISECONDS)
@@ -41,7 +45,7 @@ public class TokenCacheTest {
       .until(() -> cached.expired());
 
     TokenCache.initialize(ttl * 2, nullValueTtl, cap);
-    final CacheValue<String> cached2 = TokenCache.getInstance().put(clientId, tenant, user, val);
+    final CacheValue<UserToken> cached2 = TokenCache.getInstance().put(clientId, tenant, user, val);
 
     await().with()
       .pollInterval(20, TimeUnit.MILLISECONDS)
@@ -73,6 +77,20 @@ public class TokenCacheTest {
   }
 
   @Test
+  public void testPutInvalidate() throws Exception {
+    logger.info("=== Test basic functionality (Get, Put, Get)... ===");
+
+    TokenCache cache = TokenCache.getInstance();
+
+    // basic functionality
+    cache.put(clientId, tenant, user, val);
+    assertEquals(val, cache.get(clientId, tenant, user));
+
+    cache.invalidate(clientId, tenant, user);
+    assertNull(cache.get(clientId, tenant, user));
+  }
+
+  @Test
   public void testNoOverwrite() throws Exception {
     logger.info("=== Test entries aren't overwritten... ===");
 
@@ -80,12 +98,12 @@ public class TokenCacheTest {
     String baseVal = "val";
 
     // make sure we don't overwrite the cached value
-    cache.put(clientId, tenant, user, baseVal);
-    assertEquals(baseVal, cache.get(clientId, tenant, user));
+    cache.put(clientId, tenant, user, userToken(baseVal, TOKEN_EXPIRATION));
+    assertEquals(userToken(baseVal, TOKEN_EXPIRATION), cache.get(clientId, tenant, user));
 
     for (int i = 0; i < 100; i++) {
-      cache.put(clientId, tenant, user, baseVal + i);
-      assertEquals(baseVal, cache.get(clientId, tenant, user));
+      cache.put(clientId, tenant, user, userToken(baseVal + i, Instant.now()));
+      assertEquals(userToken(baseVal, TOKEN_EXPIRATION), cache.get(clientId, tenant, user));
     }
 
     // should expire very soon, if not already.
@@ -102,7 +120,7 @@ public class TokenCacheTest {
     TokenCache cache = TokenCache.getInstance();
     String baseVal = "val";
 
-    CacheValue<String> cached = cache.put(clientId, tenant, user + 0, baseVal);
+    CacheValue<UserToken> cached = cache.put(clientId, tenant, user + 0, userToken(baseVal, Instant.now()));
     await().with()
       .pollInterval(20, TimeUnit.MILLISECONDS)
       .atMost(ttl + 100, TimeUnit.MILLISECONDS)
@@ -110,7 +128,7 @@ public class TokenCacheTest {
 
     // load capacity + 1 entries triggering eviction of expired
     for (int i = 1; i <= cap; i++) {
-      cache.put(clientId, tenant, user + i, baseVal + i);
+      cache.put(clientId, tenant, user + i, userToken(baseVal + i, TOKEN_EXPIRATION));
     }
 
     // should be evicted as it's expired
@@ -118,7 +136,7 @@ public class TokenCacheTest {
 
     // should still be cached
     for (int i = 1; i <= cap; i++) {
-      assertEquals(baseVal + i, cache.get(clientId, tenant, user + i));
+      assertEquals(userToken(baseVal + i, TOKEN_EXPIRATION), cache.get(clientId, tenant, user + i));
     }
   }
 
@@ -131,7 +149,7 @@ public class TokenCacheTest {
 
     // load capacity + 1 entries triggering eviction of the first
     for (int i = 0; i <= cap; i++) {
-      cache.put(clientId, tenant, user + i, baseVal + i);
+      cache.put(clientId, tenant, user + i, userToken(baseVal + i, TOKEN_EXPIRATION));
     }
 
     // should be evicted as it's the oldest
@@ -139,7 +157,7 @@ public class TokenCacheTest {
 
     // should still be cached
     for (int i = 1; i <= cap; i++) {
-      assertEquals(baseVal + i, cache.get(clientId, tenant, user + i));
+      assertEquals(userToken(baseVal + i, TOKEN_EXPIRATION), cache.get(clientId, tenant, user + i));
     }
   }
 
@@ -149,7 +167,7 @@ public class TokenCacheTest {
 
     TokenCache cache = TokenCache.getInstance();
 
-    CacheValue<String> cached = cache.put(clientId, tenant, user, null);
+    CacheValue<UserToken> cached = cache.put(clientId, tenant, user, null);
 
     assertNull(cache.get(clientId, tenant, user));
 
@@ -159,5 +177,12 @@ public class TokenCacheTest {
       .until(() -> cached.expired());
 
     assertNull(cache.get(clientId, tenant, user));
+  }
+
+  private UserToken userToken(String token, Instant accessExpiration) {
+    return UserToken.builder()
+        .accessToken(token)
+        .accessTokenExpiration(accessExpiration)
+        .build();
   }
 }
