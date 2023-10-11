@@ -4,7 +4,7 @@
 	<groupId>org.folio</groupId>
 	<artifactId>edge-api-utils</artifactId>
   <packaging>jar</packaging>
-  <version>1.3.0</version>
+  <version>1.3.1-SNAPSHOT</version>
   <name>edge-api-utils</name>
   <description>Common/Shared Edge API utilities for edge-common and edge-common-spring</description>
 
