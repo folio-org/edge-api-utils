@@ -1,4 +1,10 @@
-## 1.2.0 Unreleased
+## 1.4.0 Unreleased
+
+## 11/10/2023 v1.3.0 - Released
+This release includes changes in token cache for user token
+
+### Technical tasks
+* [EDGAPIUTL-15](https://issues.folio.org/browse/EDGAPIUTL-15) - Change in TokenCache for UserToken for RTR
 
 ## 22/02/2023 v1.2.0 - Released
 This release includes logging improvements configuration.
