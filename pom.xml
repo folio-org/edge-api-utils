@@ -12,7 +12,7 @@
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vault.version>5.1.0</vault.version>
-    <aws-java-sdk.version>1.12.341</aws-java-sdk.version>
+    <aws-java-sdk.version>1.12.638</aws-java-sdk.version>
     <versions-maven-plugin.version>2.13.0</versions-maven-plugin.version>
     <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
@@ -23,7 +23,7 @@
     <wiremock.version>2.35.0</wiremock.version>
     <mockito.version>4.6.1</mockito.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
-    <folio-spring-base.version>7.2.0</folio-spring-base.version>
+    <folio-spring-base.version>7.2.2</folio-spring-base.version>
   </properties>
 
   <dependencyManagement>
@@ -50,6 +50,12 @@
       <groupId>org.folio</groupId>
       <artifactId>folio-spring-system-user</artifactId>
       <version>${folio-spring-base.version}</version>
+    </dependency>
+    <!-- remove spring-boot-starter-web when folio-spring-system-user ships with spring-boot-starter-web >= 3.1.8 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>3.1.8</version>
     </dependency>
     <!-- we use log4j as our logging implementation -->
     <dependency>
