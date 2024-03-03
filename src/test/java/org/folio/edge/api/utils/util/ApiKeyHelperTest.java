@@ -14,7 +14,7 @@ import java.util.List;
 import org.folio.edge.api.utils.util.ApiKeyHelper.ApiKeySource;
 import org.junit.Test;
 import org.mockito.Mockito;
-import wiremock.javax.servlet.http.HttpServletRequest;
+import wiremock.jakarta.servlet.http.HttpServletRequest;
 
 public class ApiKeyHelperTest {
 
