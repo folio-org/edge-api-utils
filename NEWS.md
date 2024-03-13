@@ -1,8 +1,15 @@
+## 13/03/2023 v1.4.1 Released
+
+### Bugs
+
+* [EDGAPIUTL-22](https://folio-org.atlassian.net/browse/EDGAPIUTL-22) - Remove duplicate maven-source-plugin from pom.xml
+* [EDGAPIUTL-24](https://folio-org.atlassian.net/browse/EDGAPIUTL-24) - ClassNotFoundException: com.bettercloud.vault.VaultException
+
 ## 08/03/2023 v1.4.0 Released
 Quesnelia release with dependency upgrades.
 
 ### Technical tasks
-* [EDGAPIUTL-20](https://folio-org.atlassian.net/browse/EDGAPIUTL-20) Quesnelia dependency upgrades: folio-spring-support 8.1.0, aws 1.12.671, vault 6.2.0, …
+* [EDGAPIUTL-20](https://folio-org.atlassian.net/browse/EDGAPIUTL-20) - Quesnelia dependency upgrades: folio-spring-support 8.1.0, aws 1.12.671, vault 6.2.0, …
 
 The vault artifact group and package has changed: In pom.xml and Java code replace `com.bettercloud` with `io.github.jopenlibs`.
 
