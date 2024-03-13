@@ -1,4 +1,8 @@
-## 1.4.0 Unreleased
+## 08/03/2023 v1.4.0 Released
+Quesnelia release with dependency upgrades.
+
+### Technical tasks
+* [EDGAPIUTL-20](https://folio-org.atlassian.net/browse/EDGAPIUTL-20) Quesnelia dependency upgrades: folio-spring-support 8.1.0, aws 1.12.671, vault 6.2.0, …
 
 ## 11/10/2023 v1.3.0 - Released
 This release includes changes in token cache for user token
