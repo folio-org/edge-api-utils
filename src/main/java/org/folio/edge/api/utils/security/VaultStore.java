@@ -1,9 +1,9 @@
 package org.folio.edge.api.utils.security;
 
-import com.bettercloud.vault.SslConfig;
-import com.bettercloud.vault.Vault;
-import com.bettercloud.vault.VaultConfig;
-import com.bettercloud.vault.VaultException;
+import io.github.jopenlibs.vault.SslConfig;
+import io.github.jopenlibs.vault.Vault;
+import io.github.jopenlibs.vault.VaultConfig;
+import io.github.jopenlibs.vault.VaultException;
 import java.io.File;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
@@ -63,7 +63,7 @@ public class VaultStore extends SecureStore {
         config.sslConfig(sslConfig);
       }
 
-      vault = new Vault(config.build());
+      vault = Vault.create(config.build());
     } catch (VaultException e) {
       logger.error("Failed to initialize: ", e);
     }

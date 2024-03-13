@@ -58,6 +58,13 @@
       <groupId>org.folio</groupId>
       <artifactId>folio-spring-system-user</artifactId>
       <version>${folio-spring-base.version}</version>
+      <exclusions>
+        <exclusion>
+          <!-- circular dependency: https://folio-org.atlassian.net/browse/FOLSPRINGS-146 -->
+          <groupId>org.folio</groupId>
+          <artifactId>edge-api-utils</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- we use log4j as our logging implementation -->
     <dependency>

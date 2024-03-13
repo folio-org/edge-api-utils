@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.bettercloud.vault.Vault;
-import com.bettercloud.vault.api.Logical;
-import com.bettercloud.vault.response.LogicalResponse;
-import com.bettercloud.vault.rest.RestResponse;
+import io.github.jopenlibs.vault.Vault;
+import io.github.jopenlibs.vault.api.Logical;
+import io.github.jopenlibs.vault.response.LogicalResponse;
+import io.github.jopenlibs.vault.rest.RestResponse;
 import java.util.Properties;
 import org.folio.edge.api.utils.security.SecureStore.NotFoundException;
 import org.junit.Before;
