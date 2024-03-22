@@ -1,4 +1,8 @@
-## 1.4.0 Unreleased
+## 22/03/2024 v1.3.1 - Released
+This release fixes vulnerabilities in dependencies.
+
+### Bugs
+* [EDGAPIUTL-17](https://folio-org.atlassian.net/browse/EDGAPIUTL-17) - aws-java-sdk 1.12.638, folio-spring-base 7.2.2, spring-boot-starter-web 3.1.8
 
 ## 11/10/2023 v1.3.0 - Released
 This release includes changes in token cache for user token
