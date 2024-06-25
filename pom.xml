@@ -32,7 +32,7 @@
     <mockito.version>5.11.0</mockito.version>
     <commons-lang3.version>3.14.0</commons-lang3.version>
     <folio-spring-base.version>8.1.0</folio-spring-base.version>
-    <folio-tls-utils.version>1.5.2-SNAPSHOT</folio-tls-utils.version>
+    <folio-tls-utils.version>1.5.2</folio-tls-utils.version>
   </properties>
 
   <dependencyManagement>
