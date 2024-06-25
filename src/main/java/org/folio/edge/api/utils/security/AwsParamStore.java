@@ -1,5 +1,10 @@
 package org.folio.edge.api.utils.security;
 
+import static org.folio.common.utils.tls.FipsChecker.ENABLED;
+import static org.folio.common.utils.tls.FipsChecker.getApprovedSecureRandomSafe;
+import static org.folio.common.utils.tls.FipsChecker.isInBouncycastleApprovedOnlyMode;
+
+import com.amazonaws.ClientConfigurationFactory;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.ContainerCredentialsProvider;
@@ -47,6 +52,16 @@ public class AwsParamStore extends SecureStore {
     }
 
     AWSSimpleSystemsManagementClientBuilder builder = AWSSimpleSystemsManagementClientBuilder.standard();
+
+    if (ENABLED.equals(isInBouncycastleApprovedOnlyMode())) {
+      var clientConfigurationFactory = new ClientConfigurationFactory();
+      var clientConfiguration = clientConfigurationFactory.getConfig();
+      var secureRandom = getApprovedSecureRandomSafe();
+      clientConfiguration.setSecureRandom(secureRandom);
+      builder.setClientConfiguration(clientConfiguration);
+
+      logger.info("SecureRandom used for AwsParamStore: {}", secureRandom);
+    }
 
     if (region != null) {
       builder.withRegion(region);
