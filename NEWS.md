@@ -1,4 +1,7 @@
-## 01/07/2024 v1.4.1 Released
+## 03/09/2024 v1.4.3 Released
+This release including update of folio-tls-utils
+
+## 01/07/2024 v1.4.2 Released
 This release including update of folio-tls-utils and SecureRandom configuration
 
 ## 13/03/2023 v1.4.1 Released
