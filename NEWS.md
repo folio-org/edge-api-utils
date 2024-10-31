@@ -1,3 +1,9 @@
+## 31/10/2024 v1.5.0 - Released
+This release fixes vulnerabilities in dependencies.
+
+### Technical tasks
+* [EDGAPIUTL-28](https://folio-org.atlassian.net/browse/EDGAPIUTL-28) - Fix vulns in Quesnelia: folio-spring-base 8.1.2, folio-tls-utils 1.5.7
+
 ## 03/09/2024 v1.4.3 Released
 This release including update of folio-tls-utils
 
