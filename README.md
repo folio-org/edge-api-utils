@@ -40,7 +40,7 @@ e.g. Key=`ab73kbw90e/diku`, Field=`diku`
 There will be a single instance of okapi client per OkapiClientFactory and per tenant, which means that this client should never be closed or else there will be runtime errors. To enforce this behaviour, method close() has been removed from OkapiClient class.     
 
 ### Configuration
-Please refer to the Configuration sections of [edge-common-spring](https://github.com/folio-org/edge-common-spring/blob/master/README.md) and/or [edge-common](https://github.com/folio-org/edge-common-spring/blob/master/README.md) to see all available system properties and their default values.
+Please refer to the [edge-common configuration sections](https://github.com/folio-org/edge-common/blob/master/README.md#configuration) to see all available system properties and their default values.
 
 ### Issue tracker
 See project [EDGAPIUTL](https://issues.folio.org/browse/EDGAPIUTL-1)
