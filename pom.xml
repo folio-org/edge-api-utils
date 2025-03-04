@@ -17,7 +17,7 @@
   </licenses>
 
   <properties>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vault.version>6.2.0</vault.version>
     <aws-java-sdk.version>1.12.671</aws-java-sdk.version>
@@ -31,7 +31,7 @@
     <wiremock.version>3.4.2</wiremock.version>
     <mockito.version>5.11.0</mockito.version>
     <commons-lang3.version>3.14.0</commons-lang3.version>
-    <folio-spring-base.version>8.1.2</folio-spring-base.version>
+    <folio-spring-base.version>9.0.0</folio-spring-base.version>
     <folio-tls-utils.version>1.5.7</folio-tls-utils.version>
   </properties>
 
@@ -141,7 +141,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.12.1</version>
         <configuration>
-          <release>17</release>
+          <release>${java.version}</release>
         </configuration>
       </plugin>
       <plugin>
