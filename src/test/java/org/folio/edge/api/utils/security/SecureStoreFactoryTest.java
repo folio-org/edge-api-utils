@@ -1,19 +1,20 @@
 package org.folio.edge.api.utils.security;
 
-import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_SYSTEM_PROPERTY;
-import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_SYSTEM_PROPERTY;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertThrows;
 
-import com.amazonaws.SdkClientException;
 import java.util.Properties;
 import org.junit.Test;
+import software.amazon.awssdk.core.SdkSystemSetting;
+import software.amazon.awssdk.core.exception.SdkClientException;
 
 public class SecureStoreFactoryTest {
 
   public static final Class<? extends SecureStore> DEFAULT_SS_CLASS = EphemeralStore.class;
+  private static final String ACCESS_KEY_SYSTEM_PROPERTY = SdkSystemSetting.AWS_ACCESS_KEY_ID.property();
+  private static final String SECRET_KEY_SYSTEM_PROPERTY = SdkSystemSetting.AWS_SECRET_ACCESS_KEY.property();
 
   @Test
   public void testGetSecureStoreKnownTypes()
@@ -49,15 +50,32 @@ public class SecureStoreFactoryTest {
           assertThat(t.getClass(), equalTo(SdkClientException.class));
         } else {
           // Whoops, something went wrong.
-          fail(String.format("Unexpected Exception thrown for class: ", clazz.getName(), t.getMessage()));
+          throw new IllegalStateException(
+              String.format("Unexpected Exception thrown for class %s: %s", clazz.getName(), t.getMessage()),
+              t);
         }
       }
     }
   }
 
   @Test
+  public void testAwsParamStoreNull() {
+    assertThrows(SdkClientException.class, () -> SecureStoreFactory.getSecureStore(AwsParamStore.TYPE, null));
+  }
+
+  @Test
+  public void testVaultStoreNull() {
+    assertThrows(NullPointerException.class, () -> SecureStoreFactory.getSecureStore(VaultStore.TYPE, null));
+  }
+
+  @Test
+  public void testEphemeralStoreNull() {
+    assertThat(SecureStoreFactory.getSecureStore(EphemeralStore.TYPE, null), instanceOf(EphemeralStore.class));
+  }
+
+  @Test
   public void testGetSecureStoreDefaultType()
-      throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+      throws IllegalArgumentException, SecurityException {
     SecureStore actual;
 
     // unknown type
