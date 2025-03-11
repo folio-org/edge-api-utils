@@ -1,3 +1,11 @@
+## 2025-03-11 v1.6.0 - Released
+Sunflower release with upgrade of dependencies and Java.
+
+### Technical tasks
+* [FOLREL-687](https://folio-org.atlassian.net/browse/FOLREL-687) Update edge-api-utils from Java 17 to Java 21
+* [EDGAPIUTL-30](https://folio-org.atlassian.net/browse/EDGAPIUTL-30) Sunflower 2025 R1 - Migrate AWS SDK for Java from 1.x to 2.x
+* [EDGAPIUTL-34](https://folio-org.atlassian.net/browse/EDGAPIUTL-34) Upgrade all dependencies for Sunflower
+
 ## 31/10/2024 v1.5.0 - Released
 This release fixes vulnerabilities in dependencies.
 
