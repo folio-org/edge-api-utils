@@ -49,6 +49,7 @@ public class EphemeralStore extends SecureStore {
   public String get(String clientId, String tenant, String username) throws NotFoundException {
     // NOTE: ignore clientId
     String key = getKey(tenant, username);
+    logger.info("getting for tenant: {}, username: {}, and key: {}", tenant, username, key);
     String ret = store.get(key);
     if(ret == null) {
       throw new NotFoundException("Nothing associated w/ key: " + key);
@@ -57,7 +58,13 @@ public class EphemeralStore extends SecureStore {
   }
 
   private void put(String tenant, String username, String value) {
-    store.put(getKey(tenant, username), value);
+    String key = getKey(tenant, username);
+    logger.info("putting: tenant: {}, username: {}, value: {}", tenant, username, value);
+    logger.info("putting for key: {}",key);
+
+    store.put(key, value);
+
+    logger.info("get from store: {}", store.get(key));
   }
 
   public String getKey(String tenant, String username) {
