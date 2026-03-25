@@ -1,14 +1,16 @@
 package org.folio.edge.api.utils;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 public class MappersTest {
 
@@ -17,8 +19,8 @@ public class MappersTest {
     String key = "foo";
     String value = "bar";
 
-    ObjectMapper mapper = new ObjectMapper();
-    ObjectNode node = mapper.createObjectNode();
+    var mapper = JsonMapper.shared();
+    var node = mapper.createObjectNode();
     node.put(key, value);
 
     String json = node.toPrettyString();
@@ -54,15 +56,24 @@ public class MappersTest {
     assertEquals(obj.b, asObj.b);
   }
 
-  @JacksonXmlRootElement(localName = "test")
+  @Test
+  public void testJsonDate() {
+    var datestring1 = "\"1999-12-31T23:59:58.765Z\"";
+    var date = Mappers.jsonMapper.readValue(datestring1, OffsetDateTime.class);
+    assertThat(date.toString(), is("1999-12-31T23:59:58.765Z"));
+    var datestring2 = Mappers.jsonMapper.writeValueAsString(date);
+    assertThat(datestring2, is(datestring1));
+  }
+
+  @JsonRootName(value = "test")
   public static class TestObject {
 
-    @JacksonXmlProperty(localName = "a")
+    @JsonProperty(value = "a")
     private String a;
-    @JacksonXmlProperty(localName = "b")
+    @JsonProperty(value = "b")
     private String b;
 
-    public TestObject(@JacksonXmlProperty(localName = "a") String a, @JacksonXmlProperty(localName = "b") String b) {
+    public TestObject(@JsonProperty(value = "a") String a, @JsonProperty(value = "b") String b) {
       this.a = a;
       this.b = b;
     }

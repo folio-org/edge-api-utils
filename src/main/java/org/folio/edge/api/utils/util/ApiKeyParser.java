@@ -1,9 +1,9 @@
 package org.folio.edge.api.utils.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.folio.edge.api.utils.model.ClientInfo;
+import tools.jackson.databind.json.JsonMapper;
 
 public class ApiKeyParser {
 
@@ -15,8 +15,7 @@ public class ApiKeyParser {
 
     try {
       String decoded = new String(Base64.getUrlDecoder().decode(apiKey.getBytes()));
-      ObjectMapper mapper = new ObjectMapper();
-      clientInfo = mapper.readValue(decoded, ClientInfo.class);
+      clientInfo = JsonMapper.shared().readValue(decoded, ClientInfo.class);
     } catch (Exception var4) {
       throw new MalformedApiKeyException("Failed to parse apiKey to retrieve client info", var4);
     }

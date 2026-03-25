@@ -1,24 +1,27 @@
 package org.folio.edge.api.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.text.SimpleDateFormat;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.dataformat.xml.XmlMapper;
 
-public class Mappers {
+/**
+ * Provide {@link #jsonMapper} and {@link #xmlMapper}.
+ */
+public final class Mappers {
   public static final String XML_PROLOG = "<?xml version='1.0' encoding='UTF-8'?>\n";
 
   public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
-  public static final ObjectMapper jsonMapper = new ObjectMapper()
+  public static final JsonMapper jsonMapper = JsonMapper.builder()
     .enable(SerializationFeature.INDENT_OUTPUT)
-    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-    .setDateFormat(new SimpleDateFormat(DATE_FORMAT));
+    .defaultDateFormat(new SimpleDateFormat(DATE_FORMAT))
+    .build();
 
-  public static final XmlMapper xmlMapper = (XmlMapper) new XmlMapper()
+  public static final XmlMapper xmlMapper = XmlMapper.builder()
     .enable(SerializationFeature.INDENT_OUTPUT)
-    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-    .setDateFormat(new SimpleDateFormat(DATE_FORMAT));
+    .defaultDateFormat(new SimpleDateFormat(DATE_FORMAT))
+    .build();
 
   private Mappers() {
 
