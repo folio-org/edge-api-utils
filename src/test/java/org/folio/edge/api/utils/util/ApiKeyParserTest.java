@@ -2,12 +2,12 @@ package org.folio.edge.api.utils.util;
 
 import static org.junit.Assert.assertEquals;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Base64;
 import org.folio.edge.api.utils.model.ClientInfo;
 import org.folio.edge.api.utils.util.ApiKeyParser.MalformedApiKeyException;
 import org.junit.Assert;
 import org.junit.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 public class ApiKeyParserTest {
 
@@ -16,7 +16,7 @@ public class ApiKeyParserTest {
   public static final String USERNAME = "diku";
   public static final String API_KEY = "eyJzIjoiZ0szc0RWZ3labCIsInQiOiJkaWt1IiwidSI6ImRpa3UifQ==";
   public static final String BAD_API_KEY = "broken";
-  ObjectMapper objectMapper = new ObjectMapper();
+  JsonMapper objectMapper = JsonMapper.shared();
 
 
   @Test
