@@ -1,3 +1,10 @@
+## 2026-04-16 v1.7.0 - Released
+Trillium release with dependency upgrades and Jackson 3 migration.
+
+### Technical tasks
+* [EDGAPIUTL-36](https://folio-org.atlassian.net/browse/EDGAPIUTL-36) Upgrade all dependencies for Trillium
+* [EDGAPIUTL-37](https://folio-org.atlassian.net/browse/EDGAPIUTL-37) Migrate Jackson from 2 (com.fasterxml.jackson) to 3 (tools.jackson.core)
+
 ## 2025-03-11 v1.6.0 - Released
 Sunflower release with upgrade of dependencies and Java.
 
