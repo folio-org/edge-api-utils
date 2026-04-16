@@ -30,8 +30,8 @@
     <junit.version>4.13.2</junit.version>
     <wiremock.version>3.13.2</wiremock.version>
     <mockito.version>5.21.0</mockito.version>
-    <folio-spring-base.version>10.0.0-RC1</folio-spring-base.version>
-    <folio-tls-utils.version>3.0.9</folio-tls-utils.version>
+    <folio-spring-base.version>10.0.0</folio-spring-base.version>
+    <folio-tls-utils.version>4.0.0</folio-tls-utils.version>
   </properties>
 
   <dependencyManagement>
