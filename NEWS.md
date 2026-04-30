@@ -1,3 +1,9 @@
+## 2026-04-30 v1.7.1 - Released
+Trillium bugfix with dependency upgrades.
+
+### Technical tasks
+* [EDGAPIUTL-38](https://folio-org.atlassian.net/browse/EDGAPIUTL-38) Bump tomcat, jackson, netty, log4j, spring boot fixing security vulnerbilities.
+
 ## 2026-04-16 v1.7.0 - Released
 Trillium release with dependency upgrades and Jackson 3 migration.
 
