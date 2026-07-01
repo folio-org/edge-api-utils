@@ -36,7 +36,7 @@ public class PropertiesUtil {
           logger.info("Successfully loaded properties from: {}", secureStorePropFile);
         }
       } catch (Exception e) {
-        throw new AuthorizationException("Failed to load secure store properties");
+        throw new AuthorizationException("Failed to load secure store properties", e);
       }
     } else {
       logger.warn("No secure store properties file specified. Using defaults");
