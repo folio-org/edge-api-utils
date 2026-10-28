@@ -19,16 +19,16 @@
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <vault.version>6.2.1</vault.version>
-    <aws-java-sdk.version>2.42.41</aws-java-sdk.version>
-    <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
-    <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
+    <vault.version>6.2.3</vault.version>
+    <aws-java-sdk.version>2.57.4</aws-java-sdk.version>
+    <versions-maven-plugin.version>2.23.0</versions-maven-plugin.version>
+    <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
-    <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+    <build-helper-maven-plugin.version>3.6.2</build-helper-maven-plugin.version>
     <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
     <wiremock.version>3.13.2</wiremock.version>
-    <folio-spring-base.version>10.0.0</folio-spring-base.version>
-    <folio-tls-utils.version>4.0.0</folio-tls-utils.version>
+    <folio-spring-base.version>10.0.1</folio-spring-base.version>
+    <folio-tls-utils.version>4.0.7</folio-tls-utils.version>
   </properties>
 
   <dependencyManagement>
@@ -36,7 +36,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>4.0.6</version>
+        <version>4.1.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -67,7 +67,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
     </dependency>
     <!-- Only needed for VaultStore -->
     <dependency>
@@ -130,7 +130,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.14.0</version>
+        <version>3.16.0</version>
         <configuration>
           <release>${java.version}</release>
         </configuration>
@@ -209,7 +209,7 @@
 
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.11.2</version>
+        <version>3.12.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -223,7 +223,7 @@
 
       <plugin>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1.4</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>deploy</id>

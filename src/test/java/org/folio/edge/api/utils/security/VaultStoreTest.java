@@ -11,6 +11,7 @@ import io.github.jopenlibs.vault.response.LogicalResponse;
 import io.github.jopenlibs.vault.rest.RestResponse;
 import java.util.Properties;
 import org.folio.edge.api.utils.security.SecureStore.NotFoundException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -25,14 +26,21 @@ public class VaultStoreTest {
   @InjectMocks
   VaultStore secureStore;
 
+  private AutoCloseable mocks;
+
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
 
     Properties props = new Properties();
 
     secureStore = new VaultStore(props);
 
-    MockitoAnnotations.initMocks(this);
+    mocks = MockitoAnnotations.openMocks(this);
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    mocks.close();
   }
 
   @Test(expected = NotFoundException.class)
