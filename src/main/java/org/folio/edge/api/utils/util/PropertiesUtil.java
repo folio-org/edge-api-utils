@@ -2,6 +2,7 @@ package org.folio.edge.api.utils.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -27,7 +28,7 @@ public class PropertiesUtil {
       URL url = null;
       try {
         if (isURL.matcher(secureStorePropFile).matches()) {
-          url = new URL(secureStorePropFile);
+          url = URI.create(secureStorePropFile).toURL();
         }
 
         try (
