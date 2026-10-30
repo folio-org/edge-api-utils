@@ -1,3 +1,10 @@
+## 2026-10-30 v1.7.2 - Released
+Trillium CSP#1 with dependency upgrades.
+
+### Technical tasks
+* [EDGAPIUTL-40](https://folio-org.atlassian.net/browse/EDGAPIUTL-40) Use GitHub Actions Workflows for Maven replacing Jenkinsfile
+* [EDGAPIUTL-42](https://folio-org.atlassian.net/browse/EDGAPIUTL-42) Upgrade to Spring Boot 4.1.1
+
 ## 2026-04-30 v1.7.1 - Released
 Trillium bugfix with dependency upgrades.
 
